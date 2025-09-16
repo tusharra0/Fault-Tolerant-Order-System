@@ -14,12 +14,11 @@ class OrderRequest(BaseModel):
 
 @app.post("/orders")
 def create_order(order: OrderRequest):
-    # Save to Postgres
     db = SessionLocal()
     db_order = Order(
         id=order.order_id,
         user_id=order.user_id,
-        items=",".join(order.items),  # simple string storage
+        items=",".join(order.items),  
         total=order.total,
         status="PENDING"
     )
@@ -27,14 +26,12 @@ def create_order(order: OrderRequest):
     db.commit()
     db.close()
 
-    # Publish to RabbitMQ
     publish_order(order.dict())
 
     return {"status": "Order received", "order_id": order.order_id}
 
 
 
-# Initialize DB tables on startup
 @app.on_event("startup")
 def on_startup():
     init_db()

@@ -9,7 +9,6 @@ def callback(ch, method, properties, body):
     order = json.loads(body.decode("utf-8"))
     print(f"[x] Payment Service received: {order}")
 
-    # Save payment record to DB
     db = SessionLocal()
     try:
         payment = Payment(order_id=order["order_id"], authorized=True)
@@ -18,7 +17,6 @@ def callback(ch, method, properties, body):
     finally:
         db.close()
 
-    # Publish payment event
     event = {
         "type": "payment.authorized",
         "order_id": order["order_id"],
@@ -50,12 +48,10 @@ def main():
     connection = connect_rabbitmq()
     channel = connection.channel()
 
-    # Declare exchange and queue
     channel.exchange_declare(exchange="orders", exchange_type="topic")
     channel.queue_declare(queue="q.payment", durable=True)
     channel.queue_bind(exchange="orders", queue="q.payment", routing_key="order.created")
 
-    # Consume messages
     channel.basic_consume(queue="q.payment", on_message_callback=callback)
     print("[*] Payment Service waiting for messages...")
     channel.start_consuming()

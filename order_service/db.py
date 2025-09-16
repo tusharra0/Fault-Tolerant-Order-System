@@ -8,7 +8,6 @@ SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 Base = declarative_base()
 
-# 👇 Add this line to auto-create tables if missing
 def init_db():
-    from models import Order  # import your models
+    from models import Order 
     Base.metadata.create_all(bind=engine)
