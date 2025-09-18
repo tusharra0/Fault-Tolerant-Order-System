@@ -40,3 +40,23 @@ services:
         condition: service_started
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/orders
+
+  inventory_service:
+    build: ./inventory_service
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/orders
+
+  shipping_service:
+    build: ./shipping_service.py
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/orders
