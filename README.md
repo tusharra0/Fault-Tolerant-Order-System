@@ -1,7 +1,6 @@
 # Fault Tolerant Order Processing System
 
-A distributed, fault tolerant microservices system for order processing built with **Python, FastAPI, RabbitMQ, and PostgreSQL**.  
-It’s designed to handle orders through events, keep working even if a service fails, and scale like a real distributed system.
+A distributed, fault tolerant microservices system for order processing built with **Python, FastAPI, RabbitMQ, and PostgreSQL**. It’s designed to handle orders through events, keep working even if a service fails, and scale like a real distributed system.
 
 ---
 
@@ -15,7 +14,7 @@ The system simulates an e-commerce backend where customer orders pass through mu
 4. **Shipping Service** – Consumes `inventory.reserved`, creates shipments, and publishes `shipping.ready`.  
 
 ### Fault Tolerance
-- RabbitMQ queues are **durable** and configured with **Dead Letter Queues (DLQs)**.  
+- RabbitMQ queues are **durable** and configured with **Dead Letter Queues**.  
 - Failed messages are retried and eventually routed to a DLQ if recovery isn’t possible.  
 - Each service has its own **PostgreSQL database**, ensuring data consistency and isolation.  
 - Monitoring is supported via **CloudWatch** to track queue depth, latency, and uptime.  
