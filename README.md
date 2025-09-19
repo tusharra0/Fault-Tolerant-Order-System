@@ -39,7 +39,7 @@ flowchart TD
 ```
 
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **Language:** Python 3.11  
 - **Framework:** FastAPI  
