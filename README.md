@@ -44,14 +44,14 @@ flowchart TD
 - **Language:** Python 3.11  
 - **Framework:** FastAPI  
 - **Message Broker:** RabbitMQ  
-- **Database:** PostgreSQL (local) / Amazon RDS (cloud)  
-- **Deployment:** Docker Compose (local), AWS EC2 (cloud)  
+- **Database:** PostgreSQL (locally) / Amazon RDS (cloud)  
+- **Deployment:** Docker Compose (locally), AWS EC2 (cloud)  
 - **Monitoring:** AWS CloudWatch  
 - **Testing:** Pytest, Locust (load testing)  
 
 ---
 
-## 🛠️ Getting Started
+##  Getting Started
 
 ### Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)  
@@ -62,4 +62,13 @@ flowchart TD
    ```sh
    git clone https://github.com/your_username/fault-tolerant-order-system.git
    cd fault-tolerant-order-system
+2. Start all services:
+   ```sh
+   docker-compose up --build
+3. Verify services
+   Order API: http://localhost:8000/orders
+   RabbitMQ Dashboard: http://localhost:15672
+   
+
+5. 
 
