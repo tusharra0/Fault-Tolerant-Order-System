@@ -69,7 +69,33 @@ flowchart TD
    ```sh
    Order API: http://localhost:8000/orders
    RabbitMQ Dashboard: http://localhost:15672
-   
+---
 
-5. 
+##  Usage
+
+### Submit a new order
+
+```bash
+curl -X POST "http://localhost:8000/orders" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "order_id": "123",
+           "user_id": "42",
+           "items": ["Book"],
+           "total": 20.0
+         }'
+```
+### Simulating a failure 
+```bash
+curl -X POST "http://localhost:8000/orders" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "order_id": "999",
+           "user_id": "42",
+           "items": ["Laptop"],
+           "total": 2000,
+           "force_fail": true
+         }'
+
+
 
