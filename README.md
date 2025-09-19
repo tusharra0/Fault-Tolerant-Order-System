@@ -66,6 +66,7 @@ flowchart TD
    ```sh
    docker-compose up --build
 3. Verify services
+   ```sh
    Order API: http://localhost:8000/orders
    RabbitMQ Dashboard: http://localhost:15672
    
