@@ -13,7 +13,9 @@ def callback(ch, method, properties, body):
 
     db = SessionLocal()
     try:
-        # Simulate shipment creation
+        if inventory_event.get("force_fail"):
+            raise Exception("Simulated shipping failure")
+
         tracking_number = f"SHIP-{uuid.uuid4().hex[:8].upper()}"
         estimated_delivery = datetime.utcnow() + timedelta(days=3)
 
@@ -27,24 +29,27 @@ def callback(ch, method, properties, body):
         db.add(shipment)
         db.commit()
         print(f"[✓] Shipment created for order: {inventory_event['order_id']} | Tracking: {tracking_number}")
+
+        event = {
+            "type": "shipping.ready",
+            "order_id": inventory_event["order_id"],
+            "user_id": inventory_event["user_id"],
+            "tracking_number": tracking_number,
+            "estimated_delivery": estimated_delivery.isoformat()
+        }
+        ch.basic_publish(
+            exchange="orders",
+            routing_key="shipping.ready",
+            body=json.dumps(event).encode("utf-8")
+        )
+        print(f"[→] Published shipping.ready for order: {inventory_event['order_id']}")
+        ch.basic_ack(delivery_tag=method.delivery_tag)
+
+    except Exception as e:
+        print(f"[!] Error in Shipping Service: {e}")
+        ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
     finally:
         db.close()
-
-    # Publish shipping.ready event
-    event = {
-        "type": "shipping.ready",
-        "order_id": inventory_event["order_id"],
-        "user_id": inventory_event["user_id"],
-        "tracking_number": tracking_number,
-        "estimated_delivery": estimated_delivery.isoformat()
-    }
-    ch.basic_publish(
-        exchange="orders",
-        routing_key="shipping.ready",
-        body=json.dumps(event).encode("utf-8")
-    )
-    print(f"[→] Published shipping.ready for order: {inventory_event['order_id']}")
-    ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
 def connect_rabbitmq():
@@ -66,8 +71,21 @@ def main():
     channel = connection.channel()
 
     channel.exchange_declare(exchange="orders", exchange_type="topic")
-    channel.queue_declare(queue="q.shipping", durable=True)
+    channel.exchange_declare(exchange="orders.dlx", exchange_type="topic")  # Dead Letter Exchange
+
+    channel.queue_declare(
+        queue="q.shipping",
+        durable=True,
+        arguments={
+            "x-dead-letter-exchange": "orders.dlx",
+            "x-dead-letter-routing-key": "shipping.dead"
+        }
+    )
     channel.queue_bind(exchange="orders", queue="q.shipping", routing_key="inventory.reserved")
+
+    # Dead Letter Queue
+    channel.queue_declare(queue="q.shipping.dlq", durable=True)
+    channel.queue_bind(exchange="orders.dlx", queue="q.shipping.dlq", routing_key="shipping.dead")
 
     channel.basic_consume(queue="q.shipping", on_message_callback=callback)
     print("[*] Shipping Service waiting for inventory.reserved messages...")
