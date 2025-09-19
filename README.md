@@ -35,3 +35,30 @@ flowchart TD
     I -->|writes| IDB[(Inventory DB)]
     S -->|writes| SDB[(Shipping DB)]
     B -->|writes| ODB[(Central Orders DB)]
+
+---
+
+## ⚙️ Tech Stack
+
+- **Language:** Python 3.11  
+- **Framework:** FastAPI  
+- **Message Broker:** RabbitMQ  
+- **Database:** PostgreSQL (local) / Amazon RDS (cloud)  
+- **Deployment:** Docker Compose (local), AWS EC2 (cloud)  
+- **Monitoring:** AWS CloudWatch  
+- **Testing:** Pytest, Locust (load testing)  
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- [Docker](https://docs.docker.com/get-docker/)  
+- [Docker Compose](https://docs.docker.com/compose/)  
+
+### Installation
+1. Clone the repo:
+   ```sh
+   git clone https://github.com/your_username/fault-tolerant-order-system.git
+   cd fault-tolerant-order-system
+
