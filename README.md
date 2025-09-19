@@ -96,5 +96,19 @@ curl -X POST "http://localhost:8000/orders" \
            "total": 2000,
            "force_fail": true
          }'
+```
+---
+## Roadmap
 
+- [x] Core Order → Payment → Inventory → Shipping pipeline  
+- [x] Retry logic + DLQ for fault tolerance  
+- [x] Docker Compose local setup  
+- [ ] AWS EC2 + RDS deployment  
+- [ ] CI/CD pipeline with GitHub Actions  
+- [ ] Grafana dashboard for monitoring  
 
+---
+## 📬 Contact
+
+- **Tushar Rao** – [LinkedIn](https://www.linkedin.com/in/tusharra0/)  
+- **Steric Tsui** – [LinkedIn](https://www.linkedin.com/in/steric-tsui/)  
