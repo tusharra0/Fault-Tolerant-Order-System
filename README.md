@@ -4,7 +4,7 @@ A distributed, fault tolerant microservices system for order processing built wi
 
 ---
 
-## 🚀 About the Project
+## About the Project
 
 The system simulates an e-commerce backend where customer orders pass through multiple stages:
 
@@ -21,7 +21,7 @@ The system simulates an e-commerce backend where customer orders pass through mu
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
