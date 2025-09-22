@@ -101,7 +101,6 @@ curl -X POST "http://localhost:8000/orders" \
 
 - **Order API (FastAPI Docs):** [http://3.80.195.219:8000/docs](http://3.80.195.219:8000/docs)  
 - **RabbitMQ Dashboard:** [http://3.80.195.219:15672](http://3.80.195.219:15672)  
-- **CloudWatch Metrics Dashboard:** [Your Public Link Here]  
 
 ---
 ## Roadmap
@@ -111,7 +110,7 @@ curl -X POST "http://localhost:8000/orders" \
 - [x] Docker Compose local setup  
 - [X] AWS EC2 + RDS deployment  
 - [X] CI/CD pipeline with GitHub Actions  
-- [X] Grafana dashboard for monitoring  
+
 
 ---
 ## 📬 Contact
