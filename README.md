@@ -99,9 +99,9 @@ curl -X POST "http://localhost:8000/orders" \
 ```
 ## Deployment & Monitoring
 
-- **Order API (FastAPI Docs):** [Live Link](http://<ec2-public-ip>:8000/docs)  
-- **RabbitMQ Dashboard:** [Live Link](http://<ec2-public-ip>:15672)  
-- **CloudWatch Metrics Dashboard:** [Live Link](https://<your-dashboard-url>)  
+- **Order API (FastAPI Docs):** [http://3.80.195.219:8000/docs](http://3.80.195.219:8000/docs)  
+- **RabbitMQ Dashboard:** [http://3.80.195.219:15672](http://3.80.195.219:15672)  
+- **CloudWatch Metrics Dashboard:** [Your Public Link Here]  
 
 ---
 ## Roadmap
