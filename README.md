@@ -97,15 +97,21 @@ curl -X POST "http://localhost:8000/orders" \
            "force_fail": true
          }'
 ```
+## Deployment & Monitoring
+
+- **Order API (FastAPI Docs):** [Live Link](http://<ec2-public-ip>:8000/docs)  
+- **RabbitMQ Dashboard:** [Live Link](http://<ec2-public-ip>:15672)  
+- **CloudWatch Metrics Dashboard:** [Live Link](https://<your-dashboard-url>)  
+
 ---
 ## Roadmap
 
 - [x] Core Order → Payment → Inventory → Shipping pipeline  
 - [x] Retry logic + DLQ for fault tolerance  
 - [x] Docker Compose local setup  
-- [ ] AWS EC2 + RDS deployment  
-- [ ] CI/CD pipeline with GitHub Actions  
-- [ ] Grafana dashboard for monitoring  
+- [X] AWS EC2 + RDS deployment  
+- [X] CI/CD pipeline with GitHub Actions  
+- [X] Grafana dashboard for monitoring  
 
 ---
 ## 📬 Contact
